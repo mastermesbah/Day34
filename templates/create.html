@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Create{% endblock %}
+{% block content %}
+
+<!-- <form method="POST" class="post-form" action="/create" enctype="multipart/form-data"> -->
+<form method="POST" class="post-form" enctype="multipart/form-data">
+{% csrf_token %}
+{{ form.non_field_errors }}
+
+{% for hidden_field in form.hidden_fields %}
+  {{ hidden_field.errors }}
+  {{ hidden_field }}
+{% endfor %}
+
+<table>
+  {% for field in form.visible_fields %}
+    <tr>
+      <th>{{ field.label_tag }}</th>
+      <td>
+        {{ field.errors }}
+        {{ field }}
+        {{ field.help_text }}
+      </td>
+    </tr>
+  {% endfor %}
+</table>
+       <button type="submit">Submit</button>
+</form>
+{% endblock %}
